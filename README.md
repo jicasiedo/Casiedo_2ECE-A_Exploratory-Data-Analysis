@@ -38,3 +38,37 @@ spotify_data = pd.read_csv('spotify-2023.csv')
 spotify_data
 ````
 > Output:
+
+![image](https://github.com/user-attachments/assets/96f72928-590c-4e52-9cb5-425b606f13fc)
+
+#### After loading the file, it showed a Unicode Decode Error prompt. One of the reasons for this is that a different character set is encoded in the file.
+#### One method we can use to load the dataset is to launch the .csv file in our device, open it in **Microsoft Excel** and export it as a .xlsx file.
+#### Now, we load the file again in our code into spotify_data.
+```python 
+spotify_data = pd.read_excel('spotify-2023.xlsx')
+spotify_data
+```
+>Output:
+
+![image](https://github.com/user-attachments/assets/421826ee-8482-4a18-ac10-197348f5d1f4)
+
+#### In this output, the dataset has a wide dataframe where some columns are hidden. We can display all the columns by changing the pandas display settings with this code:
+```python
+pd.set_option('display.max_columns', None)
+```
+#### To revert back to the original pandas display settings, this code is to be used:
+```python
+pd.reset_option('All')
+```
+---
+### **Overview of the Dataset**
+#### We can begin the exploratory data analysis now that we can see our dataset.
+#### The size or dimension of our dataset can be known using the .shape attribute.
+```python
+print("Number of rows and columns:", spotify_data.shape)
+```
+>Output:
+
+![image](https://github.com/user-attachments/assets/320aba75-802a-474a-ab38-89da8092d656)
+
+#### Now we know that the dataset has **953 rows** and **24 columns**.
