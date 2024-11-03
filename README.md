@@ -22,7 +22,7 @@
 #### 
 ---
 ## **Dataset 💾**
-#### The dataset containing the "Most Streamed Spotify Songs 2023" can be downloaded in the *kaggle* website thorugh this link: [Most Streamed Spotify Songs 2023](https://www.kaggle.com/datasets/nelgiriyewithana/top-spotify-songs-2023) 🔗
+#### The dataset containing the "Most Streamed Spotify Songs 2023" can be downloaded on the *kaggle* website through this link: [Most Streamed Spotify Songs 2023](https://www.kaggle.com/datasets/nelgiriyewithana/top-spotify-songs-2023) 🔗
 ---
 ## **Activity Proper 📝**
 #### Let's import the necessary libraries that we will use in our Python code.
