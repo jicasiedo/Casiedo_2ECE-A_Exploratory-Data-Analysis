@@ -235,7 +235,7 @@ artist_counts.head()
 ```python
 tracks_year = spotify_data['released_year'].value_counts().sort_index()
 plt.figure(figsize=(15, 8))
-tracks_per_year.plot(kind='bar')
+tracks_year.plot(kind='bar')
 plt.title('No. of Tracks Released Per Year')
 plt.xlabel('Year')
 plt.ylabel('No. of Tracks Released')
@@ -258,7 +258,7 @@ plt.show()
 ```python
 tracks_month = spotify_data['released_month'].value_counts().sort_index()
 plt.figure(figsize=(15, 8))
-tracks_per_month.plot(kind='bar')
+tracks_month.plot(kind='bar')
 plt.title('No. of Tracks Released Per Month')
 plt.xlabel('Year')
 plt.ylabel('No. of Tracks Released')
@@ -268,4 +268,48 @@ plt.show()
 
 >Output:
 ![image](https://github.com/user-attachments/assets/51ebdc26-df27-49cf-b68e-39a2c5e3f7c9)
+
+#### The graph displays that the month of January has the highest number of tracks releases in the "Most Streamed Spotify Songs 2023" list, followed by month of May. The tracks released in January might be a strategic method  since those have potential to accumulate more streams for the rest of the year. 
+
+#### Each of the months has an adequate number of track releases throughout the year. This shows that the music industry and music interest remains present all year round.
+
+---
+
+##  Genre and Music Characteristics
+
+#### In this section, we will observe and analyze the correlation of different attributes present in the dataset on how it contributes to the number of streams.
+
+#### An ideal data visualization of correlation of different attributes can be best represented with the use of heatmaps. Heatmaps are visual tools that makes identifying patterns, trends, or correlations easier to interpret.
+
+#### Seaborn library will be used for better graphics on the data visualization of correlations
+```python 
+import seaborn as sns
+```
+
+The visualization can be achieved using the following:
+#### `plt.figure(figsize=( , ))` for the figure size
+#### `plt.title` for the graph title
+#### `sns.heatmap` for the type of graph
+#### `annot = True` to display numerical value
+#### `cmap='coolwarm` to adjust the colors of the graph
+#### `plt.show()` to display the graph
+
+```python
+characteristics = spotify_data[['streams', 'bpm', 'danceability_%', 'valence_%',	'energy_%',	'acousticness_%', 'instrumentalness_%', 'liveness_%', 'speechiness_%']].corr()
+plt.figure(figsize=(12, 10))
+sns.heatmap(characteristics, annot=True, cmap='coolwarm')
+plt.title("Correlation Heatmap between Streams and Musical Attributes")
+plt.show()
+```
+
+>Output:
+![image](https://github.com/user-attachments/assets/3cf160cc-35d9-41bf-a060-9a9e48fbbf27)
+
+#### The heatmap displayed a weak relationship of streams with other attributes. No single musical characteristic seems to influence the number of streams a track has. This indicates that popular songs do not rely on a single characteristic.
+
+#### The attributes that showed a noticeable correlation are "danceability" with "valence" and "energy" with "valence" as well. The "energy" and "acousticness" showed the weakest correlation among the attributes. This indicates that the higher the acousticness of the song, the less energy it gives off, and vice versa.
+
+---
+
+## **Platform Popularity**
 
