@@ -37,6 +37,8 @@
 ## **Activity Proper 📝**
 #### Let's import the necessary libraries that we will use in our Python code.
 ```python
+#Import the necessary libraries to be used in the activity (pandas and matplotlib)
+
 import pandas as pd
 import matplotlib.pyplot as plt
 ```
@@ -45,10 +47,13 @@ import matplotlib.pyplot as plt
 
 #### Using the downloaded `.csv` file containing the "Most Streamed Spotify Songs 2023", we will load the file into 'spotify_data'.
 ```python
+#Load the provided dataset into pandas dataframe
+
 spotify_data = pd.read_csv('spotify-2023.csv')
 spotify_data
 ````
 > Output:
+
 ![image](https://github.com/user-attachments/assets/96f72928-590c-4e52-9cb5-425b606f13fc)
 
 #### After loading the file, it showed a Unicode Decode Error prompt. One of the reasons for this is that a different character set is encoded in the file.
@@ -65,24 +70,33 @@ spotify_data
 
 #### In this output, the dataset has a wide dataframe where some columns are hidden. We can display all the columns by changing the pandas display settings with this code:
 ```python
+#Adjusting pandas display setting to have a better observation of dataset by being able to view all the columns
+
 pd.set_option('display.max_columns', None)
+spotify_data
 ```
 
 #### To revert back to the original pandas display settings, this code is to be used:
 ```python
-pd.reset_option('All')
+#Reset pandas display settings
+
+pd.reset_option("all")
+spotify_data
 ```
 
 ---
 
-## **Overview of the Dataset**
+## **Overview of the Dataset 📃**
 
 #### We can begin the exploratory data analysis now that we can see our dataset.
 
 #### The size or dimension of our dataset can be known using the `.shape` attribute.
 ```python
+#Display the number of rows and columns of dataframe
+
 print("Number of rows and columns:", spotify_data.shape)
 ```
+
 >Output:
 
 ![image](https://github.com/user-attachments/assets/320aba75-802a-474a-ab38-89da8092d656)
@@ -92,6 +106,8 @@ print("Number of rows and columns:", spotify_data.shape)
 #### Now, let's get the information of our dataset. We will use the `.info()` attribute to identify the data types of each column of the dataset.
 
 ```python
+#Extract the data tyoes of each column in the dataframe
+
 spotify_data.info()
 ```
 
@@ -110,11 +126,14 @@ spotify_data.info()
 
 #### Alternatively, we can count the number of missing values of each column by using another method:
 ```python
+#Count the missing values of a column
+
 rows = len(spotify_data)
 not_missing = spotify_data.count()
 missing = rows - not_missing
 missing [missing > 0]
 ```
+
 >Output:
 
 ![image](https://github.com/user-attachments/assets/357660d9-a187-4411-bd87-663f7e04f96b)
@@ -125,7 +144,7 @@ missing [missing > 0]
 
 ---
 
-## **Basic Descriptive Statistics**
+## **Basic Descriptive Statistics 📊**
 
 #### In this section, we will explore basic descriptive statistics of the streams of the songs in the dataset by calculating its mean, median, and standard deviation to understand the average number of streams, the middle ground of streams, and the variation in streaming activity. These statistics will provide a better understanding of the dataset.
 
@@ -135,17 +154,24 @@ missing [missing > 0]
 
 #### Let's convert the datatype of the streams column:
 ```python
-streams = spotify_data['streams'].astype(float)
+#Convert the object column to numeric values
+
+streams = pd.to_numeric(spotify_data['streams'], errors='coerce')
+streams
 ```
+
 >Output: 
 
 ![image](https://github.com/user-attachments/assets/e566f087-6223-45d6-a28c-3ec7b7999cdc)
 
 #### We can now calculate the mean of the streams column using the `.mean()` attribute and `round` function to make our mean in two decimal places.
 ```python
-mean_streams = round(streams.mean(), 2)
-mean_streams
+#Calculate the mean
+
+mean = round(streams.mean(),2)
+mean
 ```
+
 >Output:
 ![image](https://github.com/user-attachments/assets/bcda3e1d-bd8e-4867-96cd-a8398c67e51d)
 
@@ -155,8 +181,10 @@ mean_streams
 
 #### We can get the median of the streams column by using the `.median()` attribute:
 ```python
-median_streams = streams.median()
-median_streams
+#Calculate the median
+
+median = round(streams.median(),2)
+median
 ```
 
 >Output:
@@ -169,8 +197,10 @@ median_streams
 
 #### We will use the `.std()` attribute to compute the standard deviation of the streams column and `round()` function to make our result in two decimal places:
 ```python
-std_streams = round(streams.std(),2)
-std_streams
+#Calculate the standard deviation
+
+std = round(streams.std(),2)
+std
 ```
 
 >Output:
@@ -184,16 +214,21 @@ std_streams
 
 ---
 
-## **Top Performers**
+## **Top Performers 🕺**
 
 #### In this section, we will identify the top streamed tracks and most frequent artists from the "Most Streamed Spotify Songs 2023" dataset.
 
 
-### Top 5 Most Streamed Track
+### Top 5 Most Streamed Track 🎧
 
 #### To identify the top streamed tracks of the dataset we will use `.sort_values(by = 'streams', ascending = False]` attribute to sort the tracks by number of streams in descending order and `.head()` function to display the top 5 of the list.
 ```python
-sorted_stream = spotify_data.sort_values(by = 'streams', ascending = False)
+#Sort the streams dataframe by number of streams in descending order (highest to lowest)
+
+sorted_stream = spotify_data.sort_values(by='streams', ascending=False)
+
+#Display the top 5 artists
+
 sorted_stream.head()
 ```
 
@@ -202,12 +237,14 @@ sorted_stream.head()
 
 #### The most streamed track in Spotify during 2023 is **Blinding Lights** by The Weeknd with 3,703,895,074 streams.
 
-### Top Artists
+### Top Artists 🎤
 
 #### To count the frequency of each artists in the dataset, the `.valuecounts()` function and the `.head()` is used to display the top 5 most frequent artists.
 ```python
+#Count the appearances of the top 5 artists
+
 artist_count = spotify_data['artist(s)_name'].value_counts()
-artist_counts.head()
+artist_count.head()
 ```
 
 >Output:
@@ -217,24 +254,27 @@ artist_counts.head()
 
 ---
 
-## Temporal Trends
+## Temporal Trends 📈
 
 #### In this section, we will analyze the trends in the number of tracks based on its year of release and month of release. Observation on the visualization that will be produced will help generate insights and ideas id and how time contributes to the number of streams of Spotify songs during 2023.
 
-### Tracks and Released Year
+### Tracks and Released Year 📅
 
 #### To organize the tracks in the dataset to its year of release we will use the `.sort_index()` attribute to sort by labels along the x-axis.
 
 #### The graphical representation to be used for data visualization is the bar graph. The visualization can be achieved with the Matplotlib library using the following:
 #### `plt.figure(figsize=( , ))` for the figure size
 #### `plt.title` for the graph title
-#### `plt.xlabel() for the label on x-axis
-#### `plt.ylabel() for the label on y-axis
+#### `plt.xlabel()` for the label on x-axis
+#### `plt.ylabel()` for the label on y-axis
 #### `plt.grid(axis='y')` to generate the gridlines for better viewing
 #### `plt.show()` to display the graph
 ```python
+#Display the number of tracks released per year in the dataset
+
 tracks_year = spotify_data['released_year'].value_counts().sort_index()
-plt.figure(figsize=(15, 8))
+
+plt.figure(figsize=(12, 6))
 tracks_year.plot(kind='bar')
 plt.title('No. of Tracks Released Per Year')
 plt.xlabel('Year')
@@ -250,12 +290,14 @@ plt.show()
 
 #### Another thing to notice is that there are songs in the dataset that were released significantly earlier. This suggests that it is possible that classic hits from the past are still attracting listeners up until now. This highlights that there are certain songs that lasts in terms of popularity that traverse through time.
 
-### Tracks and Released Month
+### Tracks and Released Month 🕒
 
 #### To organize the tracks in the dataset to its month of release we will use the `.sort_index()` attribute to sort by labels along the x-axis.
 
 #### The graphical representation to be used for data visualization is the bar graph. The visualization can be achieved with the same method from the *No. of Tracks Released Per Year* graph.
 ```python
+#Display the number of tracks released per month in the dataset
+
 tracks_month = spotify_data['released_month'].value_counts().sort_index()
 plt.figure(figsize=(15, 8))
 tracks_month.plot(kind='bar')
@@ -275,7 +317,7 @@ plt.show()
 
 ---
 
-##  Genre and Music Characteristics
+##  Genre and Music Characteristics 🎶
 
 #### In this section, we will observe and analyze the correlation of different attributes present in the dataset on how it contributes to the number of streams.
 
@@ -283,6 +325,8 @@ plt.show()
 
 #### Seaborn library will be used for better graphics on the data visualization of correlations
 ```python 
+#Import seaborn, another data visualization library
+
 import seaborn as sns
 ```
 
@@ -290,12 +334,17 @@ The visualization can be achieved using the following:
 #### `plt.figure(figsize=( , ))` for the figure size
 #### `plt.title` for the graph title
 #### `sns.heatmap` for the type of graph
-#### `annot = True` to display numerical value
+#### `annot` = True` to display numerical value
 #### `cmap='coolwarm` to adjust the colors of the graph
 #### `plt.show()` to display the graph
 
 ```python
+#Group the track characteristics in the dataset
+
 characteristics = spotify_data[['streams', 'bpm', 'danceability_%', 'valence_%',	'energy_%',	'acousticness_%', 'instrumentalness_%', 'liveness_%', 'speechiness_%']].corr()
+
+#Plotting the heatmap
+
 plt.figure(figsize=(12, 10))
 sns.heatmap(characteristics, annot=True, cmap='coolwarm')
 plt.title("Correlation Heatmap between Streams and Musical Attributes")
@@ -311,5 +360,123 @@ plt.show()
 
 ---
 
-## **Platform Popularity**
+## **Platform Popularity 💹** 
 
+#### In this section. we will identify what music platform favors the most popular tracks.
+
+#### To identify the how frequent the tracks in the dataset appear in the charts and playlists in Spotify and Apple, we will get the average of each column and compare the results
+
+```python
+#Calculate the mean of playlists and charts
+
+ave_spotify_playlists = spotify_data['in_spotify_playlists'].mean()
+ave_spotify_charts = spotify_data['in_spotify_charts'].mean()
+ave_apple_playlists = spotify_data['in_apple_playlists'].mean()
+ave_apple_charts = spotify_data['in_apple_charts'].mean()
+
+#Group the averages and label them
+
+averages = [ave_spotify_playlists, ave_spotify_charts, ave_apple_playlists, ave_apple_charts]
+labels = ['Spotify Playlists', 'Spotify Charts', 'Apple Playlists', 'Apple Charts']
+
+# Plotting the bar graph
+
+plt.figure(figsize=(13, 10))
+plt.bar(labels, averages)
+plt.ylabel('Average Number')
+plt.title('Average of Tracks Appearing in Spotify and Apple Playlists and Charts')
+plt.show()
+```
+
+> Output:
+![image](https://github.com/user-attachments/assets/6a88eee3-8056-4df6-a03c-e65892085f4f)
+
+#### The graph showed an overwhelming number of tracks being included in playlists for Spotify users, but the tracks appear lower in charts, while the tracks in the Apple platform displayed much fewer appearances in playlists and charts.
+
+#### We can conclude that Spotify is the more favored platform in the most popular tracks having a large number of the tracks being included in playlists.
+
+---
+
+## **Advanced Analysis 💭** 
+
+#### In this section. we will identify other possible contributing factors to the number of streams of a track from the "Most Streamed Songs in Spotify 2023" dataset.
+ 
+### Streams and Keys 🎵
+
+```python
+#Group the keys and their average number of streams
+
+key_analysis = spotify_data.groupby('key')['streams'].mean().reset_index()
+
+#Plotting the bar graph
+
+plt.figure(figsize=(12, 6))
+plt.bar(key_analysis['key'], key_analysis['streams'])
+plt.title('Average Streams by Key')
+plt.ylabel('Average Streams')
+plt.xlabel('Key')
+plt.show()
+```
+
+>Output:
+![image](https://github.com/user-attachments/assets/38c08138-cb34-4539-9f14-b6895bcc6255)
+
+### Modes and Keys 🎵
+
+```python
+#Group the modes and their average number of streams
+
+mode_analysis = spotify_data.groupby('mode')['streams'].mean().reset_index()
+
+#Plotting the bar graph
+
+plt.figure(figsize=(12, 6))
+plt.bar(mode_analysis['mode'], mode_analysis['streams'])
+plt.title('Average Streams by Mode')
+plt.ylabel('Average Streams')
+plt.xlabel('Mode')
+plt.show()
+```
+
+>Output:
+![image](https://github.com/user-attachments/assets/f519d380-6536-4753-85fe-66faa44c109b)
+
+#### The graphs for the relationship between streams, keys, and modes suggest that the songs with the major keys tend to have a slightly higher average number of streams. This tells us that the key and major of a song do not strongly affect the number of streams or popularity.
+
+### Genres and Artists 🧑‍🎤
+
+```python
+#Total the playlist and chart appearances in Spotify and Apple
+
+playlists = spotify_data['in_spotify_playlists'] + spotify_data['in_apple_playlists']
+spotify_data['total_chart_appearances'] = spotify_data['in_spotify_charts'] + spotify_data['in_apple_charts']
+
+#Group the Artist(s) and their total playlist and chart appearances and display in descending order (highest ot lowest)
+
+artist_analysis = spotify_data.groupby('artist(s)_name')[['total_playlist_appearances', 'total_chart_appearances']].sum().reset_index()
+artist_analysis = artist_analysis.sort_values(by=['total_playlist_appearances', 'total_chart_appearances'], ascending=False)
+
+#Display the top 10 artists
+
+top_10_artists = artist_analysis.head(10)
+
+#Plotting the bar graph for streams and playlist appearances of top artists
+
+plt.figure(figsize=(12, 6))
+plt.bar(top_10_artists['artist(s)_name'], top_10_artists['total_playlist_appearances'], label='Playlist Appearances')
+plt.title('Top 10 Artists by Playlist')
+plt.ylabel('Total Appearances')
+plt.xlabel('Artist')
+plt.show()
+
+#Plotting the bar graph for streams and chart appearances of top artists
+
+plt.figure(figsize=(12, 6))
+plt.bar(top_10_artists['artist(s)_name'], top_10_artists['total_chart_appearances'], label='Chart Appearances')
+plt.title('Top 10 Artists by Chart Appearances')
+plt.ylabel('Total Appearances')
+plt.xlabel('Artist')
+plt.show()
+```
+
+#### 
